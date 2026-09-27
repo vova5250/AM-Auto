@@ -8,7 +8,7 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
 
   return (
-    <Router>
+    <Router basename={process.env.NODE_ENV === 'production' ? process.env.PUBLIC_URL : undefined}>
       <Routes>
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route

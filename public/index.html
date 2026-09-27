@@ -122,17 +122,18 @@
 
 <h2>Записаться на диагностику</h2>
 
-<form>
+<form id="request-form">
 
-<input type="text" placeholder="Ваше имя">
+<input type="text" name="name" placeholder="Ваше имя" required>
 
-<input type="tel" placeholder="Телефон">
+<input type="tel" name="phone" placeholder="Телефон" required>
 
-<input type="text" placeholder="Марка автомобиля">
+<input type="text" name="carModel" placeholder="Марка автомобиля">
 
-<textarea placeholder="Опишите проблему"></textarea>
+<textarea name="problem" placeholder="Опишите проблему"></textarea>
 
 <button type="submit">Отправить заявку</button>
+<p id="request-form-message" role="status" aria-live="polite"></p>
 
 </form>
 
@@ -149,6 +150,7 @@
 </footer>
 
 <script src="js/script.js"></script>
+<script src="js/form.js"></script>
 
 </body>
 </html>
