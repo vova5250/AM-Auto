@@ -1,0 +1,13 @@
+Options -Indexes
+RewriteEngine On
+
+RewriteRule ^api/?(.*)$ api/index.php?path=$1 [QSA,L]
+RewriteRule ^admin$ admin/ [R=301,L]
+RewriteCond %{REQUEST_URI} ^/admin/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^admin/.*$ admin/index.html [L]
+
+<FilesMatch "(^\.|\.sql$|config\.php$)">
+  Require all denied
+</FilesMatch>

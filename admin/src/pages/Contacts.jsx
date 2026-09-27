@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 
 export function Contacts({ token }) {
-  const [contacts, setContacts] = useState(null);
   const [formData, setFormData] = useState({
     phone: '',
     email: '',
@@ -13,19 +12,18 @@ export function Contacts({ token }) {
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  useEffect(() => {
-    fetchContacts();
-  }, []);
-
-  const fetchContacts = async () => {
+  const fetchContacts = useCallback(async () => {
     try {
       const response = await axios.get('/api/contacts');
-      setContacts(response.data);
       setFormData(response.data);
     } catch (err) {
       console.error('Ошибка загрузки контактов:', err);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchContacts();
+  }, [fetchContacts]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
