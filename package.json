@@ -1,0 +1,31 @@
+{
+  "name": "am-auto",
+  "version": "1.0.0",
+  "description": "АМ Авто - сайт с админпанелью для управления контентом",
+  "main": "server/server.js",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "scripts": {
+    "start": "node server/server.js",
+    "build": "cd admin && npm install && npm run build",
+    "postinstall": "cd admin && npm install",
+    "dev": "nodemon server/server.js",
+    "admin:dev": "cd admin && npm start",
+    "serve": "node server/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0",
+    "dotenv": "^16.0.3",
+    "cors": "^2.8.5",
+    "multer": "^1.4.5-lts.1",
+    "express-validator": "^7.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
