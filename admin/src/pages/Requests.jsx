@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 
 export function Requests({ token }) {
   const [requests, setRequests] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState('new');
 
-  useEffect(() => {
-    fetchRequests();
-    const interval = setInterval(fetchRequests, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const fetchRequests = async () => {
+  const fetchRequests = useCallback(async () => {
     try {
       const response = await axios.get('/api/requests', {
         headers: { Authorization: `Bearer ${token}` }
@@ -20,7 +14,13 @@ export function Requests({ token }) {
     } catch (err) {
       console.error('Ошибка загрузки заявок:', err);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    fetchRequests();
+    const interval = setInterval(fetchRequests, 5000);
+    return () => clearInterval(interval);
+  }, [fetchRequests]);
 
   const handleUpdateStatus = async (id, status) => {
     try {

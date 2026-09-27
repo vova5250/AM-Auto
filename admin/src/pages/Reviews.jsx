@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 
 export function Reviews({ token }) {
@@ -6,11 +6,7 @@ export function Reviews({ token }) {
   const [pendingReviews, setPendingReviews] = useState([]);
   const [activeTab, setActiveTab] = useState('approved');
 
-  useEffect(() => {
-    fetchReviews();
-  }, []);
-
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     try {
       const [approvedRes, allRes] = await Promise.all([
         axios.get('/api/reviews'),
@@ -23,7 +19,11 @@ export function Reviews({ token }) {
     } catch (err) {
       console.error('Ошибка загрузки отзывов:', err);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
 
   const handleApproveReview = async (id) => {
     try {
